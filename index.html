@@ -90,7 +90,7 @@
 <span class="text-xl font-extrabold tracking-tighter text-[#041627]">Zonda Tech</span>
 </div>
 <div class="hidden md:flex gap-8 items-center">
-<a class="text-[#041627] border-b-2 border-[#041627] pb-1 transition-all font-['Manrope'] font-semibold tracking-[-0.02em]" href="#servicios">Servicios</a>
+<a class="text-[#1c1b1b]/60 hover:text-[#041627] px-2 transition-all font-['Manrope'] font-semibold tracking-[-0.02em]" href="#servicios">Servicios</a>
 <a class="text-[#1c1b1b]/60 hover:text-[#041627] px-2 transition-all font-['Manrope'] font-semibold tracking-[-0.02em]" href="#proceso">Proceso</a>
 <a class="text-[#1c1b1b]/60 hover:text-[#041627] px-2 transition-all font-['Manrope'] font-semibold tracking-[-0.02em]" href="#testimonios">Testimonios</a>
 <a class="text-[#1c1b1b]/60 hover:text-[#041627] px-2 transition-all font-['Manrope'] font-semibold tracking-[-0.02em]" href="#contacto">Contacto</a>
@@ -267,26 +267,29 @@
 <div class="grid sm:grid-cols-2 gap-6">
 <div>
 <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Nombre Completo</label>
-<input class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="Juan Pérez" type="text"/>
+<input id="nombre" class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="Juan Pérez" type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Email de Contacto</label>
-<input class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="juan@ejemplo.com" type="email"/>
+<input id="email" class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="juan@ejemplo.com" type="email"/>
 </div>
 </div>
+
 <div>
 <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Descripción del Problema</label>
-<textarea class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="Describa brevemente qué sucede con su equipo..." rows="4"></textarea>
+<textarea id="mensaje" class="w-full bg-surface-container-high border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-highest transition-all" placeholder="Describa brevemente qué sucede con su equipo..." rows="4"></textarea>
 </div>
 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-<button class="flex-1 bg-primary text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity" type="submit">
-<span class="material-symbols-outlined" data-icon="mail">mail</span>
-                                ENVIAR POR EMAIL
-                            </button>
-<a class="flex-1 border-2 border-primary text-primary font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/5 transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="chat">chat</span>
-                                WHATSAPP DIRECTO
-                            </a>
+<button onclick="enviarEmail()" type="button"
+class="flex-1 bg-primary text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">mail</span>
+ENVIAR POR EMAIL
+</button>
+<button onclick="enviarWhatsApp()" type="button"
+class="flex-1 border-2 border-primary text-primary font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">chat</span>
+ENVIAR POR WHATSAPP
+</button>
 </div>
 </form>
 </div>
@@ -364,4 +367,41 @@
 </div>
 </div>
 </footer>
+<script>
+function enviarWhatsApp(){
+let nombre = document.getElementById("nombre").value;
+let email = document.getElementById("email").value;
+let mensaje = document.getElementById("mensaje").value;
+if(nombre === "" || email === "" || mensaje === ""){
+alert("Por favor completa todos los campos");
+return;
+}
+let texto = `Hola, solicito soporte técnico.
+Nombre: ${nombre}
+Email: ${email}
+Problema:
+${mensaje}
+Enviado desde la web de Zonda Tech.`;
+let numero = "5492644715821";
+let url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+window.open(url, "_blank");
+}
+function enviarEmail(){
+let nombre = document.getElementById("nombre").value;
+let email = document.getElementById("email").value;
+let mensaje = document.getElementById("mensaje").value;
+if(nombre === "" || email === "" || mensaje === ""){
+alert("Por favor completa todos los campos");
+return;
+}
+let asunto = "Solicitud de soporte técnico - Zonda Tech";
+let cuerpo = `Nombre: ${nombre}
+Email: ${email}
+Problema reportado:
+${mensaje}
+Mensaje enviado desde la landing page.`;
+let mailto = `mailto:davidled225@gmail.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+window.location.href = mailto;
+}
+</script>
 </body></html>
